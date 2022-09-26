@@ -22,6 +22,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelperLibrary", "HelperLibr
 		{1CAB9DD3-5A54-4218-AED1-47FECE6B0844} = {1CAB9DD3-5A54-4218-AED1-47FECE6B0844}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D3B6849A-866F-4D9B-A8C1-E820E37D432D}"
+	ProjectSection(SolutionItems) = preProject
+		26thSept_Assignments.txt = 26thSept_Assignments.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
