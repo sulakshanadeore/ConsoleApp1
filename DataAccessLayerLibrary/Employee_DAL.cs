@@ -39,6 +39,32 @@ namespace DataAccessLayerLibrary
         }
 
 
+        public int EmployeeCount()
+        {
+            SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["NorthCnString"].ConnectionString);
+
+            // SqlCommand cmd1 = new SqlCommand("select * from [dbo].[fn_EmpCount]()", cn);
+            // cn.Open();
+            //SqlDataReader dr=cmd1.ExecuteReader();
+            // int cnt = 0;
+            // if (dr.HasRows)
+            // {
+            //     dr.Read();
+            //    cnt=Convert.ToInt32(dr[0]);
+
+            // }
+            // return cnt;
+            SqlCommand cmd = new SqlCommand("select count(*) from employees", cn);
+            cn.Open();
+
+            int cnt=(int)cmd.ExecuteScalar();
+            cn.Close();
+            cn.Dispose();
+            return cnt;
+
+
+        }
+
         public bool UpdateEmployee(Employee_BAL employee)
         {
             
@@ -205,15 +231,32 @@ namespace DataAccessLayerLibrary
 
 
         }
+        public List<Employee_BAL> EmployeeList()
+        {
+            SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["NorthCnString"].ConnectionString);
 
+            SqlCommand cmdlist = new SqlCommand("select * from  [dbo].[fn_Emplist]()",cn);
+            cn.Open();
+            SqlDataReader dr=cmdlist.ExecuteReader();
+            List<Employee_BAL> emplist = new List<Employee_BAL>();
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    Employee_BAL bal = new Employee_BAL();
+                    bal.EmployeeID = Convert.ToInt32(dr["EmployeeID"]);
+                    bal.FirstName = dr["FirstName"].ToString();
+                    bal.LastName = dr["LastName"].ToString();
+                    bal.Title = dr["Title"].ToString();
+                    bal.BirthDate =Convert.ToDateTime(dr["BirthDate"]);
+                    emplist.Add(bal);
+                }
+            }
+            cn.Close();
+            cn.Dispose();
+            return emplist;
 
-
-
-
-        //public List<Employee_BAL> EmployeeList()
-        //{ 
-
-        //}
+        }
 
 
     }

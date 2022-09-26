@@ -44,10 +44,16 @@ namespace HelperLibrary
 
         }
 
+        public int countEmployees()
+        {
+            return dal.EmployeeCount();
+        
+        }
 
-        //public List<Employee_BAL> ShowEmployeeList()
-        //{
 
-        //}
+        public List<Employee_BAL> ShowEmployeeList()
+        {
+            return dal.EmployeeList();
+        }
     }
 }

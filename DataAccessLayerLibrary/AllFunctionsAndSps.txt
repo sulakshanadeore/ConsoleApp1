@@ -38,3 +38,11 @@ AS
 
 RETURN 0
 ---------------------------------------------------------
+
+
+CREATE FUNCTION [dbo].fn_Emplist
+()
+RETURNS TABLE AS RETURN
+(
+	SELECT EmployeeID,FirstName,LastName,Title,BirthDate from Employees
+)

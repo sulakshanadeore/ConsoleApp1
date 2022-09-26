@@ -16,7 +16,7 @@ namespace ConsoleApp1
             Employee_Helper helper = new Employee_Helper();
             Console.WriteLine("Menu");
             Console.WriteLine("-----");
-            Console.WriteLine("1. Add New Employee \n 2. Update Employee \n 3. Find Employee \n 4. Show All \n 5.Delete \n 6. Exit ");
+            Console.WriteLine("1. Add New Employee \n 2. Update Employee \n 3. Find Employee \n 4. Show All \n 5.Delete \n  6. Employee count \n 7. Exit ");
             int userchoice = Convert.ToInt32(Console.ReadLine());
             Employee_BAL emp = new Employee_BAL();
             switch (userchoice)
@@ -75,6 +75,18 @@ namespace ConsoleApp1
 
                     break;
                 case 4:
+                    List<Employee_BAL> list = new List<Employee_BAL>();
+                    list=helper.ShowEmployeeList();
+                    foreach (var item in list)
+                    {
+                        Console.WriteLine(item.EmployeeID);
+                        Console.WriteLine(item.FirstName);
+                        Console.WriteLine(item.LastName);
+                        Console.WriteLine(item.Title);
+                        Console.WriteLine(item.BirthDate);
+                        Console.WriteLine();
+                    }
+                    break;
                 case 5:
 
                     Console.WriteLine("Enter Employeeid ");
@@ -91,6 +103,11 @@ namespace ConsoleApp1
 
                     break;
                 case 6:
+                    int cnt=helper.countEmployees();
+                    Console.WriteLine("Total employees=" + cnt);
+                    break;
+
+                case 7:
                     Environment.Exit(1);
                     break;
                 
