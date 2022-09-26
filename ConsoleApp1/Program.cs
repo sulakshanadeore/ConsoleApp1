@@ -16,7 +16,7 @@ namespace ConsoleApp1
             Employee_Helper helper = new Employee_Helper();
             Console.WriteLine("Menu");
             Console.WriteLine("-----");
-            Console.WriteLine("1. Add New Employee \n 2. Update Employee \n 3. Find Employee \n 4. Show All \n 5.Delete \n 6. Exit");
+            Console.WriteLine("1. Add New Employee \n 2. Update Employee \n 3. Find Employee \n 4. Show All \n 5.Delete \n 6. Exit ");
             int userchoice = Convert.ToInt32(Console.ReadLine());
             Employee_BAL emp = new Employee_BAL();
             switch (userchoice)
@@ -70,9 +70,25 @@ namespace ConsoleApp1
 
                     break;
                 case 3:
+                    //WithoutOutParameter(helper, emp);
+                    WithOutParameter(helper, emp);
+
                     break;
                 case 4:
                 case 5:
+
+                    Console.WriteLine("Enter Employeeid ");
+                    emp.EmployeeID = Convert.ToInt32(Console.ReadLine());
+                    queryStatus=helper.RemvoeEmployee(emp.EmployeeID);
+                    if (queryStatus)
+                    {
+                        Console.WriteLine("Employee deleted successfully.....");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Some error occured...");
+                    }
+
                     break;
                 case 6:
                     Environment.Exit(1);
@@ -82,6 +98,50 @@ namespace ConsoleApp1
             }
 
             Console.ReadLine();
+        }
+
+        private static void WithOutParameter(Employee_Helper helper, Employee_BAL emp)
+        {
+            Console.WriteLine("Enter Employeeid ");
+            emp.EmployeeID = Convert.ToInt32(Console.ReadLine());
+            Employee_BAL bal = new Employee_BAL();
+            helper.SearchEmployee(emp.EmployeeID, out bal);
+            if (bal != null)
+            {
+                bal.EmployeeID = emp.EmployeeID;
+                Console.WriteLine("following were the details found in the db");
+                Console.WriteLine(bal.EmployeeID);
+                Console.WriteLine(bal.FirstName);
+                Console.WriteLine(bal.LastName);
+                Console.WriteLine(bal.Title);
+                Console.WriteLine(bal.BirthDate);
+            }
+            else
+            {
+                Console.WriteLine("empid not found");
+            }
+        }
+
+        private static void WithoutOutParameter(Employee_Helper helper, Employee_BAL emp)
+        {
+            Console.WriteLine("Enter Employeeid ");
+            emp.EmployeeID = Convert.ToInt32(Console.ReadLine());
+            Employee_BAL bal = new Employee_BAL();
+            bal = helper.SearchEmployee(emp.EmployeeID);
+            if (bal != null)
+            {
+                bal.EmployeeID = emp.EmployeeID;
+                Console.WriteLine("following were the details found in the db");
+                Console.WriteLine(bal.EmployeeID);
+                Console.WriteLine(bal.FirstName);
+                Console.WriteLine(bal.LastName);
+                Console.WriteLine(bal.Title);
+                Console.WriteLine(bal.BirthDate);
+            }
+            else
+            {
+                Console.WriteLine("empid not found");
+            }
         }
     }
 }

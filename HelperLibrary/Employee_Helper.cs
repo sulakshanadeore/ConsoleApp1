@@ -27,14 +27,23 @@ namespace HelperLibrary
         {
             return dal.UpdateEmployee(employee);
         }
-        public void RemvoeEmployee(Employee_BAL employee)
+        public bool RemvoeEmployee(int employee_id)
         {
+            return dal.DeleteEmployee(employee_id);
+        }
+        public Employee_BAL SearchEmployee(int empid)
+        {
+            return dal.FindEmployee(empid);
+        }
+
+        public void SearchEmployee(int empid,out Employee_BAL empdata)
+        {
+           
+            dal.FindEmployee(empid, out empdata);
+
 
         }
-        //public Employee_BAL SearchEmployee(Employee_BAL employee)
-        //{
 
-        //}
 
         //public List<Employee_BAL> ShowEmployeeList()
         //{

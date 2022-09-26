@@ -64,20 +64,157 @@ namespace DataAccessLayerLibrary
             return status;
 
         }
-        public void DeleteEmployee(Employee_BAL employee)
-        { 
-        
-        }
-        //public Employee_BAL FindEmployee(Employee_BAL employee)
-        //{
+        public bool DeleteEmployee(int employee_id)
+        {
+            SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["NorthCnString"].ConnectionString);
 
-        //}
+            SqlCommand cmdDelete = new SqlCommand("[dbo].[sp_DeleteEmployee]",cn);
+            cmdDelete.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdDelete.Parameters.AddWithValue("@p_empid", employee_id);
+            cn.Open();
+            int i=cmdDelete.ExecuteNonQuery();
+            bool status = false;
+            if (i == 1)
+            {
+                status = true;
+            }
+            cn.Close();//finally
+            cn.Dispose();//finally
+            return status;
+
+        }
+        public Employee_BAL FindEmployee(int empid)
+        {
+            SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["NorthCnString"].ConnectionString);
+            SqlCommand cmdSelect = new SqlCommand("[dbo].[sp_FindEmployee]", cn);
+            cmdSelect.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdSelect.Parameters.AddWithValue("@p_empid", empid);
+            SqlParameter p1 = new SqlParameter();
+            p1.ParameterName = "@p_firstname";
+            p1.SqlDbType = System.Data.SqlDbType.NVarChar;
+            p1.Size = 10;
+            p1.Direction = System.Data.ParameterDirection.Output;
+            cmdSelect.Parameters.Add(p1);
+
+
+            SqlParameter p2 = new SqlParameter();
+            p2.ParameterName = "@p_lastname";
+            p2.SqlDbType = System.Data.SqlDbType.NVarChar;
+            p2.Size = 20;
+            p2.Direction = System.Data.ParameterDirection.Output;
+            cmdSelect.Parameters.Add(p2);
+
+
+            SqlParameter p3 = new SqlParameter();
+            p3.ParameterName = "@p_title";
+            p3.SqlDbType = System.Data.SqlDbType.NVarChar;
+            p3.Size = 30;
+            p3.Direction = System.Data.ParameterDirection.Output;
+            cmdSelect.Parameters.Add(p3);
+
+
+            SqlParameter p4 = new SqlParameter();
+            p4.ParameterName = "@p_bdate";
+            p4.SqlDbType = System.Data.SqlDbType.DateTime;
+            p4.Direction = System.Data.ParameterDirection.Output;
+            cmdSelect.Parameters.Add(p4);
+
+
+            cn.Open();
+            cmdSelect.ExecuteNonQuery();
+
+            Employee_BAL empfound = new Employee_BAL();
+            
+              empfound.FirstName  = p1.Value.ToString();
+            empfound.LastName = p2.Value.ToString();
+            empfound.Title = p3.Value.ToString();
+            empfound.BirthDate  = Convert.ToDateTime(p4.Value);
+
+
+
+
+            cn.Close();
+            cn.Dispose();
+
+
+            return empfound;
+
+
+
+        }
+
+
+
+        public void FindEmployee(int empid,out Employee_BAL empdata)
+        {
+            SqlConnection cn = new SqlConnection(ConfigurationManager.ConnectionStrings["NorthCnString"].ConnectionString);
+            SqlCommand cmdSelect = new SqlCommand("[dbo].[sp_FindEmployee]", cn);
+            cmdSelect.CommandType = System.Data.CommandType.StoredProcedure;
+            cmdSelect.Parameters.AddWithValue("@p_empid", empid);
+            SqlParameter p1 = new SqlParameter();
+            p1.ParameterName = "@p_firstname";
+            p1.SqlDbType = System.Data.SqlDbType.NVarChar;
+            p1.Size = 10;
+            p1.Direction = System.Data.ParameterDirection.Output;
+            cmdSelect.Parameters.Add(p1);
+
+
+            SqlParameter p2 = new SqlParameter();
+            p2.ParameterName = "@p_lastname";
+            p2.SqlDbType = System.Data.SqlDbType.NVarChar;
+            p2.Size = 20;
+            p2.Direction = System.Data.ParameterDirection.Output;
+            cmdSelect.Parameters.Add(p2);
+
+
+            SqlParameter p3 = new SqlParameter();
+            p3.ParameterName = "@p_title";
+            p3.SqlDbType = System.Data.SqlDbType.NVarChar;
+            p3.Size = 30;
+            p3.Direction = System.Data.ParameterDirection.Output;
+            cmdSelect.Parameters.Add(p3);
+
+
+            SqlParameter p4 = new SqlParameter();
+            p4.ParameterName = "@p_bdate";
+            p4.SqlDbType = System.Data.SqlDbType.DateTime;
+            p4.Direction = System.Data.ParameterDirection.Output;
+            cmdSelect.Parameters.Add(p4);
+
+
+            cn.Open();
+            cmdSelect.ExecuteNonQuery();
+
+            empdata = new Employee_BAL();
+
+            empdata.FirstName = p1.Value.ToString();
+            empdata.LastName = p2.Value.ToString();
+            empdata.Title = p3.Value.ToString();
+            empdata.BirthDate = Convert.ToDateTime(p4.Value);
+            Employee_BAL edata = new Employee_BAL();
+            edata = empdata;
+
+
+
+            cn.Close();
+            cn.Dispose();
+
+
+            
+
+
+
+        }
+
+
+
+
 
         //public List<Employee_BAL> EmployeeList()
         //{ 
-        
+
         //}
 
-      
+
     }
 }

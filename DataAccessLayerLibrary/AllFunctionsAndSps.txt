@@ -13,3 +13,28 @@ AS
 	BirthDate=@p_birthdate
 	where EmployeeID=@p_empid;
 RETURN 0
+------------------------------------------------
+CREATE PROCEDURE [dbo].sp_DeleteEmployee
+	@p_empid int
+	
+AS
+	Delete from Employees
+	where EmployeeID=@p_empid;
+RETURN 0
+--------------------------------------
+
+CREATE PROCEDURE [dbo].sp_FindEmployee
+	@p_empid int,
+	@p_firstname nvarchar(10) output,
+	@p_lastname nvarchar(20) output,
+	@p_title nvarchar(30) output,
+	@p_bdate datetime output
+
+AS
+	SELECT @p_firstname=FirstName, @p_lastname=LastName,@p_title=Title,
+	@p_bdate=BirthDate  
+	from Employees
+	where EmployeeID=@p_empid;
+
+RETURN 0
+---------------------------------------------------------
