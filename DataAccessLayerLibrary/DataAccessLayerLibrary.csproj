@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AllFunctionsAndSps.txt" />
+    <Content Include="steps.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
