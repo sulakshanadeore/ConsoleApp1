@@ -3,6 +3,7 @@ Using the Library Management System Database created in SQL Server:
 2) Add and Update Users in the Members table using Connected Architecture.
 3) create table users (userid varchar(10),password varchar(20));
 4) Validate  the user using his userid and password.
+Use bit datatype for boolean.
 5) After successful login the user must be shown a list of books.
 6) Then he should be able to borrow the book, and it must be added to the
 Issue table with the date of issue. The return date must also be calculated 
